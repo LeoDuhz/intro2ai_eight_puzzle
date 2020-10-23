@@ -523,7 +523,7 @@
      <string>SearchTree</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="Analysis">
     <property name="geometry">
      <rect>
       <x>720</x>
