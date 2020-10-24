@@ -17,15 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     aboutus.cpp \
+    heuristic_function.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    node.cpp
 
 HEADERS += \
     aboutus.h \
-    mainwindow.h
+    heuristic_function.h \
+    mainwindow.h \
+    node.h
 
 FORMS += \
     aboutus.ui \
+    heuristic_function.ui \
     mainwindow.ui
 
 # Default rules for deployment.
