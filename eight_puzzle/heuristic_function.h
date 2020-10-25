@@ -2,6 +2,8 @@
 #define HEURISTIC_FUNCTION_H
 
 #include <QDialog>
+#include "node.h"
+
 
 namespace Ui {
 class Heuristic_function;
@@ -17,6 +19,10 @@ public:
 
 private slots:
     void on_h1_button_clicked();
+
+    void on_close_clicked();
+
+    void on_h2_button_clicked();
 
 private:
     Ui::Heuristic_function *ui;

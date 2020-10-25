@@ -30,6 +30,8 @@ private slots:
     void on_initial_set_final_clicked();
 
 
+    void on_continuous_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLineEdit* judgeZero(std::vector<int> list, string s);

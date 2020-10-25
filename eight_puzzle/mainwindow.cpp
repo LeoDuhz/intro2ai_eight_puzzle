@@ -117,3 +117,9 @@ void MainWindow::on_initial_set_final_clicked()
 
     judgeZero(final, "final")->setText("");
 }
+
+void MainWindow::on_continuous_clicked()
+{
+//    readInInitial();
+//    readInFinal();
+}

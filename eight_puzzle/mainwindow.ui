@@ -471,7 +471,7 @@
      <string>SingleStep</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="continuous">
     <property name="geometry">
      <rect>
       <x>250</x>
