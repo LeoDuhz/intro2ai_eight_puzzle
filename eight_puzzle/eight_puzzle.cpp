@@ -55,7 +55,6 @@ void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
 
 }
 
-
 bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
 {
     for(int i = 0; i < 3; i++){
@@ -78,4 +77,95 @@ bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
     }
 
     return true;
+}
+
+bool Eight_puzzle::checkMatrixEqual(int Matrix1[3][3], int Matrix2[3][3]){
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            if (Matrix1[i][j] != Matrix2[i][j]) return false;
+        }
+    }
+    return true;
+}
+
+void Eight_puzzle::initOpenList()
+{
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            node::target_matrix[i][j] = finalMatrix[i][j];
+        }
+    }
+    node init(initMatrix);
+    init.g = 0;
+    init.update_f();
+    openlist.push_back(init);
+}
+
+node Eight_puzzle::findMinInOpenList()
+{
+    int min_f = 9999;
+    node min_node;
+    for(int i = 0; i < openlist.size(); i++){
+        if (openlist[i].f < min_f){
+            min_f = openlist[i].f;
+            min_node = openlist[i];
+        }
+    }
+
+    return min_node;
+}
+
+void Eight_puzzle::addToOpenList(int matrix[3][3])
+{
+
+    node testnode(matrix);
+    testnode.g = 0;
+    for(int i = 0; i < openlist.size(); i++){
+        if (checkMatrixEqual(openlist[i].matrix, matrix)){
+
+        }
+    }
+}
+
+void Eight_puzzle::addToCloseList(node transferNode)
+{
+    closelist.push_back(transferNode);
+}
+
+void Eight_puzzle::expandNode(node transferNode)
+{
+    int matrix[3][3];
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            matrix[i][j] = transferNode.matrix[i][j];
+        }
+    }
+
+
+
+}
+
+void Eight_puzzle::continueSolve()
+{
+    initOpenList();
+    while (true)
+    {
+        node transferNode = findMinInOpenList();
+        transferNodes.push_back(transferNode);
+
+        if (checkMatrixEqual(transferNode.matrix, finalMatrix)){
+            addToCloseList(transferNode);
+            break;
+        }
+
+        addToCloseList(transferNode);
+
+        expandNode(transferNode);
+
+        if(openlist.size() == 0){
+            QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
+            break;
+        }
+
+    }
 }

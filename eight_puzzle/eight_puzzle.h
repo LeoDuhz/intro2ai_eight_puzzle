@@ -18,12 +18,20 @@ public:
     vector<node> closelist;
     int initMatrix[3][3];
     int finalMatrix[3][3];
+    vector<node> transferNodes;
 
     void readInInitial(Ui::MainWindow *ui);
     void readInFinal(Ui::MainWindow *ui);
     bool checkMatrixValid(int matrix[3][3]);
+    bool checkMatrixEqual(int Matrix1[3][3], int Matrix2[3][3]);
 
-    void addCloseList();
+    void initOpenList();
+    void addToOpenList(int matrix[3][3]);
+    void addToCloseList(node transferNode);
+    node findMinInOpenList();
+    void expandNode(node transferNode);
+
+    void continueSolve();
 
 };
 
