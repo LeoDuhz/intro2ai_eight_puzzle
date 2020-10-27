@@ -120,6 +120,7 @@ void MainWindow::on_initial_set_final_clicked()
 
 void MainWindow::on_continuous_clicked()
 {
-//    readInInitial();
-//    readInFinal();
+    Eight_puzzle eightpuzzle;
+    eightpuzzle.readInInitial(ui);
+    eightpuzzle.readInFinal(ui);
 }

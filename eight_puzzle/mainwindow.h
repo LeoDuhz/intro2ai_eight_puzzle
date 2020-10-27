@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "qlabel.h"
 #include "qlineedit.h"
+#include "eight_puzzle.h"
 
 using namespace std;
 
