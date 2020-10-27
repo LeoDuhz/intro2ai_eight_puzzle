@@ -24,6 +24,9 @@ public:
     void readInFinal(Ui::MainWindow *ui);
     bool checkMatrixValid(int matrix[3][3]);
     bool checkMatrixEqual(int Matrix1[3][3], int Matrix2[3][3]);
+    bool checkIndexValid(int i, int j);
+    vector<int> findZeroPos(int matrix[3][3]);
+
 
     void initOpenList();
     void addToOpenList(int matrix[3][3]);

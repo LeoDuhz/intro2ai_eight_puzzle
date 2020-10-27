@@ -73,7 +73,6 @@ void node::update_h()
         break;
     }
 
-
     }
 }
 

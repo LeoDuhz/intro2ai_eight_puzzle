@@ -1,5 +1,6 @@
 #include "eight_puzzle.h"
 #include "qmessagebox.h"
+#include "qstring.h"
 
 Eight_puzzle::Eight_puzzle()
 {
@@ -31,6 +32,11 @@ void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
     initMatrix[2][1] = ui->ini8->text().toInt();
     initMatrix[2][2] = ui->ini9->text().toInt();
 
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+//            qDebug("matrix, %d", initMatrix[i][j]);
+        }
+    }
     qDebug("get initial matrix!");
     checkMatrixValid(initMatrix);
 
@@ -88,6 +94,26 @@ bool Eight_puzzle::checkMatrixEqual(int Matrix1[3][3], int Matrix2[3][3]){
     return true;
 }
 
+bool Eight_puzzle::checkIndexValid(int i, int j)
+{
+    if(i < 0 || i >= 3 || j < 0 || j >= 3) return false;
+    return true;
+}
+
+vector<int> Eight_puzzle::findZeroPos(int matrix[3][3])
+{
+    vector<int> zeroPos;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            if (matrix[i][j] == 0){
+                zeroPos.push_back(i);
+                zeroPos.push_back(j);
+                return zeroPos;
+            }
+        }
+    }
+}
+
 void Eight_puzzle::initOpenList()
 {
     for(int i = 0; i < 3; i++){
@@ -141,7 +167,29 @@ void Eight_puzzle::expandNode(node transferNode)
         }
     }
 
+    vector<int> zeroPos = findZeroPos(matrix);
+    int x = zeroPos[0];
+    int y = zeroPos[1];
 
+    //1
+    if(checkIndexValid(x-1, y)){
+
+    }
+
+    //2
+    if(checkIndexValid(x+1, y)){
+
+    }
+
+    //3
+    if(checkIndexValid(x, y-1)){
+
+    }
+
+    //4
+    if(checkIndexValid(x, y+1)){
+
+    }
 
 }
 
