@@ -161,9 +161,11 @@ void Eight_puzzle::addToCloseList(node transferNode)
 void Eight_puzzle::expandNode(node transferNode)
 {
     int matrix[3][3];
+    int newMatrix[3][3];
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
             matrix[i][j] = transferNode.matrix[i][j];
+            newMatrix[i][j] = transferNode.matrix[i][j];
         }
     }
 
@@ -171,25 +173,10 @@ void Eight_puzzle::expandNode(node transferNode)
     int x = zeroPos[0];
     int y = zeroPos[1];
 
-    //1
-    if(checkIndexValid(x-1, y)){
-
-    }
-
-    //2
-    if(checkIndexValid(x+1, y)){
-
-    }
-
-    //3
-    if(checkIndexValid(x, y-1)){
-
-    }
-
-    //4
-    if(checkIndexValid(x, y+1)){
-
-    }
+    if (x == 0 && y == 0){
+        newMatrix[0][0] = matrix[0][1];
+        newMatrix[0][1] = matrix[0][0];
+    }else if (x == )
 
 }
 
