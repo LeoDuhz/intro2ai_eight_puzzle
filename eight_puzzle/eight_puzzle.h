@@ -14,6 +14,7 @@ class Eight_puzzle
 public:
     Eight_puzzle();
 
+    static int actionCount;
     vector<node> openlist;
     vector<node> closelist;
     int initMatrix[3][3];

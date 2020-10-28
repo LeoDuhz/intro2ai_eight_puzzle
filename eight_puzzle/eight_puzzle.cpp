@@ -2,6 +2,8 @@
 #include "qmessagebox.h"
 #include "qstring.h"
 
+int Eight_puzzle::actionCount = 0;
+
 Eight_puzzle::Eight_puzzle()
 {
     for(int i = 0; i < 3; i++){
@@ -22,6 +24,7 @@ Eight_puzzle::Eight_puzzle()
 
 void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
 {
+    actionCount = 0;
     initMatrix[0][0] = ui->ini1->text().toInt();
     initMatrix[0][1] = ui->ini2->text().toInt();
     initMatrix[0][2] = ui->ini3->text().toInt();
@@ -32,11 +35,7 @@ void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
     initMatrix[2][1] = ui->ini8->text().toInt();
     initMatrix[2][2] = ui->ini9->text().toInt();
 
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-//            qDebug("matrix, %d", initMatrix[i][j]);
-        }
-    }
+
     qDebug("get initial matrix!");
     checkMatrixValid(initMatrix);
 
@@ -44,6 +43,7 @@ void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
 
 void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
 {
+    actionCount = 0;
     finalMatrix[0][0] = ui->final1->text().toInt();
     finalMatrix[0][1] = ui->final2->text().toInt();
     finalMatrix[0][2] = ui->final3->text().toInt();
@@ -336,6 +336,7 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
 
 void Eight_puzzle::continueSolve()
 {
+    actionCount = 0;
     initOpenList();
     if (!reverseOrderExamine()){
         QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
@@ -343,9 +344,7 @@ void Eight_puzzle::continueSolve()
     }
     while (openlist.size() != 0)
     {
-        static int count = 0;
-        count++;
-//        qDebug("iter num: %d", count);
+        actionCount++;
         int min_index = findMinInOpenList();
         node transferNode(openlist[min_index]);
 

@@ -13,30 +13,17 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="h1_button">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>80</y>
-     <width>111</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Choose</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>30</x>
      <y>80</y>
-     <width>211</width>
+     <width>321</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>h1(n) = 不在位置的数码个数</string>
+    <string>Algorithm 1: h1(n) = 不在位置的数码个数</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -44,25 +31,12 @@
     <rect>
      <x>30</x>
      <y>150</y>
-     <width>211</width>
+     <width>281</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>h2(n) = Manhattan距离</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="h2_button">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>160</y>
-     <width>111</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Choose</string>
+    <string>Algorithm 2: h2(n) = Manhattan距离</string>
    </property>
   </widget>
   <widget class="QPushButton" name="close">
@@ -76,6 +50,19 @@
    </property>
    <property name="text">
     <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>220</y>
+     <width>281</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Algorithm 3: h3(n) = 逆序数</string>
    </property>
   </widget>
  </widget>

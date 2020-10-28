@@ -106,6 +106,7 @@ void MainWindow::on_algorithm_clicked()
 
 void MainWindow::on_initial_set_clicked()
 {
+    Eight_puzzle::actionCount = 0;
     std::vector<int> initial;
     for(int i = 0; i < 9; i++) initial.push_back(i);
     std::random_shuffle(initial.begin(), initial.end());
@@ -134,6 +135,7 @@ void MainWindow::on_initial_set_clicked()
 
 void MainWindow::on_initial_set_final_clicked()
 {
+    Eight_puzzle::actionCount = 0;
     std::vector<int> final;
 //    for(int i = 0; i < 9; i++) final.push_back(i);
 //    std::random_shuffle(final.begin(), final.end());
@@ -224,5 +226,43 @@ void MainWindow::on_continuous_clicked()
 
 void MainWindow::on_singlestep_clicked()
 {
+//    Eight_puzzle::actionCount = 0;
+    static int count = 0;
 
+    static Eight_puzzle eightpuzzle;
+    static vector<node> transferList;
+    if (count == 0){
+        eightpuzzle.readInInitial(ui);
+        eightpuzzle.readInFinal(ui);
+        eightpuzzle.continueSolve();
+        transferList = eightpuzzle.transferNodes;
+    }
+
+    displayTransOnce(transferList[++count].matrix);
+    QTime dieTime = QTime::currentTime().addMSecs(100);
+    while( QTime::currentTime() < dieTime ) QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+    if (count == transferList.size() - 1) count = 0;
+
+}
+
+void MainWindow::on_h1_clicked()
+{
+    node::type = 1;
+    ui->algorithm->setText(QString("Algorithm 1"));
+    ui->algorithm->setStyleSheet("background:orange");
+}
+
+void MainWindow::on_h2_clicked()
+{
+    node::type = 2;
+    ui->algorithm->setText(QString("Algorithm 2"));
+    ui->algorithm->setStyleSheet("background:pink");
+}
+
+void MainWindow::on_h3_clicked()
+{
+    node::type = 3;
+    ui->algorithm->setText(QString("Algorithm 3"));
+    ui->algorithm->setStyleSheet("background:cyan");
 }

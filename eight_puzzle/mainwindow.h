@@ -36,6 +36,14 @@ private slots:
     void on_continuous_clicked();
 
 
+    void on_singlestep_clicked();
+
+    void on_h1_clicked();
+
+    void on_h2_clicked();
+
+    void on_h3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLineEdit* judgeNum(std::vector<int> list, string s, int i);

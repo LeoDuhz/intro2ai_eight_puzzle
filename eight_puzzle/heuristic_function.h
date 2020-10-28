@@ -14,15 +14,12 @@ class Heuristic_function : public QDialog
     Q_OBJECT
 
 public:
+    friend class MainWindow;
     explicit Heuristic_function(QWidget *parent = nullptr);
     ~Heuristic_function();
 
 private slots:
-    void on_h1_button_clicked();
-
     void on_close_clicked();
-
-    void on_h2_button_clicked();
 
 private:
     Ui::Heuristic_function *ui;
