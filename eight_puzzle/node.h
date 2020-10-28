@@ -14,7 +14,8 @@ public:
     int f;
     int g;
     int h;
-    node *parent;
+    int parentIndex;
+//    node *parent;
     static int type;
     static int target_matrix[3][3];
 

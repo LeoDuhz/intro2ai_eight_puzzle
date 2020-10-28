@@ -123,4 +123,5 @@ void MainWindow::on_continuous_clicked()
     Eight_puzzle eightpuzzle;
     eightpuzzle.readInInitial(ui);
     eightpuzzle.readInFinal(ui);
+    eightpuzzle.continueSolve();
 }

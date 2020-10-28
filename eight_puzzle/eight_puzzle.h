@@ -23,16 +23,17 @@ public:
     void readInInitial(Ui::MainWindow *ui);
     void readInFinal(Ui::MainWindow *ui);
     bool checkMatrixValid(int matrix[3][3]);
-    bool checkMatrixEqual(int Matrix1[3][3], int Matrix2[3][3]);
+    bool checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3]);
     bool checkIndexValid(int i, int j);
     vector<int> findZeroPos(int matrix[3][3]);
 
 
     void initOpenList();
-    void addToOpenList(int matrix[3][3]);
-    void addToCloseList(node transferNode);
-    node findMinInOpenList();
-    void expandNode(node transferNode);
+    void addToOpenList(const node& newnode);
+    void addToCloseList(const node& transferNode);
+    int findMinInOpenList();
+    void moveNode(int matrix[3][3], int x, int y, int g, int parentIndex, int direction);
+    void expandNode(const node& transferNode, int indexInCloseList);
 
     void continueSolve();
 
