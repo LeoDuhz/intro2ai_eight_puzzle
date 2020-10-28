@@ -5,8 +5,10 @@
 #include "qlabel.h"
 #include "qlineedit.h"
 #include "eight_puzzle.h"
+#include "node.h"
 
 using namespace std;
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,9 +35,11 @@ private slots:
 
     void on_continuous_clicked();
 
+
 private:
     Ui::MainWindow *ui;
-    QLineEdit* judgeZero(std::vector<int> list, string s);
+    QLineEdit* judgeNum(std::vector<int> list, string s, int i);
+    void displayTransOnce(int matrix[3][3]);
 
 };
 #endif // MAINWINDOW_H

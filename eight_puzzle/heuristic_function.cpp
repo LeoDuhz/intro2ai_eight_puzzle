@@ -29,6 +29,7 @@ void Heuristic_function::on_h2_button_clicked()
 
 void Heuristic_function::on_close_clicked()
 {
+
     this->close();
 }
 

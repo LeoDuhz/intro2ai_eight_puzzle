@@ -59,6 +59,47 @@ void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
 
 }
 
+int Eight_puzzle::getReverseOrder(vector<int> list)
+{
+    int reverseOrder = 0;
+    for(int i = 0; i < list.size(); i++){
+        for(int j = 0; j < i; j++){
+            if (list[i] != 0 && list[i] < list[j]) reverseOrder++;
+        }
+    }
+
+    return reverseOrder;
+}
+
+bool Eight_puzzle::reverseOrderExamine()
+{
+    //initial matrix reverse order
+    int iniReverseOrder = 0;
+    vector<int> iniList;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            iniList.push_back(initMatrix[i][j]);
+        }
+    }
+
+    iniReverseOrder = getReverseOrder(iniList);
+
+    //final matrix reverse order
+    int finalReverseOrder = 0;
+    vector<int> finalList;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            finalList.push_back(finalMatrix[i][j]);
+        }
+    }
+
+    finalReverseOrder = getReverseOrder(finalList);
+
+    if (iniReverseOrder % 2 == finalReverseOrder % 2) return true;
+    return false;
+
+}
+
 bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
 {
     for(int i = 0; i < 3; i++){
@@ -141,10 +182,20 @@ int Eight_puzzle::findMinInOpenList()
     return min_index;
 }
 
+bool Eight_puzzle::inCloseList(const int matrix[3][3])
+{
+    for(int i = 0; i < closelist.size(); i++){
+        if(checkMatrixEqual(matrix, closelist[i].matrix)) return true;
+    }
+
+    return false;
+}
+
 void Eight_puzzle::addToOpenList(const node& newnode)
 {
     static int addToOpenListCnt = 0;
-//    node testnode(newnode);
+    if(inCloseList(newnode.matrix)) return;
+
     for(int i = 0; i < openlist.size(); i++){
         if (checkMatrixEqual(openlist[i].matrix, newnode.matrix)){
             if(newnode.f < openlist[i].f){
@@ -153,8 +204,8 @@ void Eight_puzzle::addToOpenList(const node& newnode)
                 openlist.push_back(newnode);
                 return;
             }
+            return;
         }
-
     }
 
 //    qDebug("addToOpenListCnt: %d", ++addToOpenListCnt);
@@ -170,7 +221,7 @@ void Eight_puzzle::moveNode(int matrix[3][3], int x, int y, int g, int parentInd
 {
     static int moveNodeCnt = 0;
     moveNodeCnt++;
-    qDebug("moveNodeCnt: %d", moveNodeCnt);
+//    qDebug("moveNodeCnt: %d", moveNodeCnt);
     int newMatrix[3][3];
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
@@ -226,8 +277,8 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
     vector<int> zeroPos = findZeroPos(matrix);
     int x = zeroPos[0];
     int y = zeroPos[1];
-    qDebug("zero x: %d",x);
-    qDebug("zero y: %d", y);
+//    qDebug("zero x: %d",x);
+//    qDebug("zero y: %d", y);
     if (x == 0 && y == 0)
     {
         moveNode(matrix, x, y, transferNode.g + 1, indexInCloseList, 1);
@@ -286,14 +337,17 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
 void Eight_puzzle::continueSolve()
 {
     initOpenList();
-    while (true)
+    if (!reverseOrderExamine()){
+        QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
+    while (openlist.size() != 0)
     {
         static int count = 0;
         count++;
-        qDebug("iter num: %d", count);
+//        qDebug("iter num: %d", count);
         int min_index = findMinInOpenList();
         node transferNode(openlist[min_index]);
-        transferNodes.push_back(transferNode);
 
         if (checkMatrixEqual(transferNode.matrix, finalMatrix)){
             addToCloseList(transferNode);
@@ -301,24 +355,33 @@ void Eight_puzzle::continueSolve()
             break;
         }
 
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
-                qDebug("%d",transferNode.matrix[i][j]);
-            }
-        }
-        addToCloseList(transferNode);
+        if(!inCloseList(transferNode.matrix)) addToCloseList(transferNode);
+        openlist.erase(openlist.begin() + min_index);
 
         expandNode(transferNode, closelist.size() - 1);
 
-        openlist.erase(openlist.begin() + min_index);
 
         qDebug("size of openlist: %d", openlist.size());
         qDebug("size of closelist: %d", closelist.size());
 
         if(openlist.size() == 0){
             QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
-            break;
+            return;
         }
 
     }
+
+    backSearch(closelist[closelist.size() - 1]);
+}
+
+void Eight_puzzle::backSearch(node& finalNode)
+{
+    node tmpNode(finalNode);
+    while(tmpNode.parentIndex != -1)
+    {
+        transferNodes.push_back(tmpNode);
+        tmpNode = closelist[tmpNode.parentIndex];
+    }
+
+    reverse(transferNodes.begin(), transferNodes.end());
 }
