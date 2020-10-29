@@ -4,6 +4,7 @@ int node::type = 1; //默认选择h1启发式函数
 
 int node::target_matrix[3][3] = {0};
 
+//默认构造函数
 node::node():f(0),g(0),h(0),parentIndex(-1)/*parent(nullptr)*/
 {
     for(int i = 0; i < 3; i++){
@@ -13,6 +14,7 @@ node::node():f(0),g(0),h(0),parentIndex(-1)/*parent(nullptr)*/
     }
 }
 
+//传入矩阵初始化node
 node::node(int myMatrix[3][3]):f(0),g(0),h(0),parentIndex(-1)/*parent(nullptr)*/
 {
     for(int i = 0; i < 3; i++){
@@ -22,6 +24,7 @@ node::node(int myMatrix[3][3]):f(0),g(0),h(0),parentIndex(-1)/*parent(nullptr)*/
     }
 }
 
+//拷贝构造函数
 node::node(const node& mynode):f(mynode.f),g(mynode.g),h(mynode.h),parentIndex(mynode.parentIndex)/*parent(mynode.parent)*/
 {
     for(int i = 0; i < 3; i++){
@@ -31,6 +34,7 @@ node::node(const node& mynode):f(mynode.f),g(mynode.g),h(mynode.h),parentIndex(m
     }
 }
 
+//重载=运算符
 node& node::operator= (const node& mynode){
     this->f = mynode.f;
     this->g = mynode.g;
@@ -44,6 +48,7 @@ node& node::operator= (const node& mynode){
     }
 }
 
+//找到num这个数字对应的矩阵下标
 vector<int> node::findIndex(int num)
 {
     vector<int> index;
@@ -71,6 +76,7 @@ int node::cal_h1()
     return score;
 }
 
+//h2:每一个方格到目标位置的曼哈顿距离
 int node::cal_h2()
 {
     int score = 0;
@@ -85,6 +91,7 @@ int node::cal_h2()
     return score;
 }
 
+//h3:逆序数
 int node::cal_h3()
 {
     int score = 0;
@@ -103,6 +110,7 @@ int node::cal_h3()
     return score;
 }
 
+//根据type类型的不同，选用不同的启发式函数更新h
 void node::update_h()
 {
     switch(type){
@@ -124,6 +132,7 @@ void node::update_h()
     }
 }
 
+//根据f=g+h，更新f
 void node::update_f()
 {
     update_h();

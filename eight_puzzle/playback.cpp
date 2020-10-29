@@ -18,6 +18,7 @@ Playback::~Playback()
 
 void Playback::displayPlayback(vector<node> transferList)
 {
+    //初始打印出前三个矩阵
     QString firstOutput;
     firstOutput = QString::number(transferList[0].matrix[0][0]) + " "
                 + QString::number(transferList[0].matrix[0][1]) + " "
@@ -52,6 +53,7 @@ void Playback::displayPlayback(vector<node> transferList)
 
     ui->textBrowser->setText(firstOutput);
 
+    //不断继续打印
     for(int i = 1; i < transferList.size() / 3; i++){
         QString output;
         output = QString::number(transferList[i].matrix[0][0]) + " "

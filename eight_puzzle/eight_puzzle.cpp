@@ -25,6 +25,7 @@ Eight_puzzle::Eight_puzzle()
     closelist.clear();
 }
 
+//读入初始矩阵
 void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
 {
     actionCount = 0;
@@ -44,6 +45,7 @@ void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
 
 }
 
+//读入目标矩阵
 void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
 {
     actionCount = 0;
@@ -62,6 +64,7 @@ void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
 
 }
 
+//计算逆序数
 int Eight_puzzle::getReverseOrder(vector<int> list)
 {
     int reverseOrder = 0;
@@ -74,6 +77,7 @@ int Eight_puzzle::getReverseOrder(vector<int> list)
     return reverseOrder;
 }
 
+//通过逆序数判断当前情况下是否有解
 bool Eight_puzzle::reverseOrderExamine()
 {
     //initial matrix reverse order
@@ -103,6 +107,7 @@ bool Eight_puzzle::reverseOrderExamine()
 
 }
 
+//初始和目标矩阵检查，检查输入是否在0-9范围内，以及是否有重复输入
 bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
 {
     for(int i = 0; i < 3; i++){
@@ -127,6 +132,7 @@ bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
     return true;
 }
 
+//判断两个矩阵是否相等
 bool Eight_puzzle::checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3]){
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
@@ -136,12 +142,14 @@ bool Eight_puzzle::checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3
     return true;
 }
 
+//检查数组下标是否越界
 bool Eight_puzzle::checkIndexValid(int i, int j)
 {
     if(i < 0 || i >= 3 || j < 0 || j >= 3) return false;
     return true;
 }
 
+//找到矩阵中0的位置
 vector<int> Eight_puzzle::findZeroPos(int matrix[3][3])
 {
     vector<int> zeroPos;
@@ -156,6 +164,7 @@ vector<int> Eight_puzzle::findZeroPos(int matrix[3][3])
     }
 }
 
+//将初始矩阵插入openlist中
 void Eight_puzzle::initOpenList()
 {
     for(int i = 0; i < 3; i++){
@@ -169,6 +178,7 @@ void Eight_puzzle::initOpenList()
     openlist.push_back(init);
 }
 
+//找到openlist中最小的一个节点，输出其下标
 int Eight_puzzle::findMinInOpenList()
 {
     int min_f = 9999;
@@ -185,6 +195,7 @@ int Eight_puzzle::findMinInOpenList()
     return min_index;
 }
 
+//判断一个矩阵是否在closelist中
 bool Eight_puzzle::inCloseList(const int matrix[3][3])
 {
     for(int i = 0; i < closelist.size(); i++){
@@ -194,6 +205,7 @@ bool Eight_puzzle::inCloseList(const int matrix[3][3])
     return false;
 }
 
+//将新节点插入openlist中，如果已经存在，则判断是否f更小，若是，则替换
 void Eight_puzzle::addToOpenList(const node& newnode)
 {
     addToOpenListCnt++;
@@ -213,11 +225,13 @@ void Eight_puzzle::addToOpenList(const node& newnode)
     openlist.push_back(newnode);
 }
 
+//把节点插入到closelist中
 void Eight_puzzle::addToCloseList(const node& transferNode)
 {
     closelist.push_back(transferNode);
 }
 
+//把一个矩阵，根据空格位置(x,y)，以及移动方向direction，进行移动，同时根据g和父节点的index，生成新节点
 void Eight_puzzle::moveNode(int matrix[3][3], int x, int y, int g, int parentIndex, int direction)
 {
     static int moveNodeCnt = 0;
@@ -265,6 +279,7 @@ void Eight_puzzle::moveNode(int matrix[3][3], int x, int y, int g, int parentInd
     return;
 }
 
+//根据不同空格位置进行结点的扩展
 void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
 {
     int matrix[3][3];
@@ -335,33 +350,42 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
 
 }
 
+//求解八数码问题
 void Eight_puzzle::continueSolve()
 {
-    actionCount = 0;
+    actionCount = 0;  //开始记录步数
     addToOpenListCnt = 0;
-    double startTime = (double)clock();
+    double startTime = (double)clock();  //计时开始
     QTime timer;
     timer.start();
-    initOpenList();
+    initOpenList();  //初始化openlist
+
+    //检查是否有解，若无解，直接报错然后返回
     if (!reverseOrderExamine()){
         QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
         return;
     }
+
     while (openlist.size() != 0)
     {
         actionCount++;
-        int min_index = findMinInOpenList();
+        int min_index = findMinInOpenList();  //找到openlist中最小的那个节点
         node transferNode(openlist[min_index]);
 
+        //找到了路径，返回
         if (checkMatrixEqual(transferNode.matrix, finalMatrix)){
             addToCloseList(transferNode);
             qDebug("find the result!!!");
             break;
         }
 
+        //如果openlist最小的这个节点不再closelist中，那么加入closelist中
         if(!inCloseList(transferNode.matrix)) addToCloseList(transferNode);
+
+        //将该节点从openlist中去除
         openlist.erase(openlist.begin() + min_index);
 
+        //根据这个节点，进行上下左右尝试扩展
         expandNode(transferNode, closelist.size() - 1);
 
 
@@ -374,13 +398,17 @@ void Eight_puzzle::continueSolve()
 //        }
 
     }
+
     double endTime = (double)clock();
     solveTime = (endTime - startTime) / 1000;  //ms为单位
     qDebug("solve time: %f", solveTime);
     qDebug("node cnt: %d", addToOpenListCnt);
+
+    //回溯路径，将结果保存在transferNodes这个vector中
     backSearch(closelist[closelist.size() - 1]);
 }
 
+//回溯closelist，找到路径
 void Eight_puzzle::backSearch(node& finalNode)
 {
     node tmpNode(finalNode);

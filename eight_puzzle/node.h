@@ -17,9 +17,9 @@ public:
     int f;
     int g;
     int h;
-    int parentIndex;
-    static int type;
-    static int target_matrix[3][3];
+    int parentIndex;  //父节点在closelist中的index
+    static int type;  //选用的启发式函数类型
+    static int target_matrix[3][3];  //目标的矩阵
 
     vector<int> findIndex(int num);
     int cal_h1();
