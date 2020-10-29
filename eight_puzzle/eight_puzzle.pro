@@ -21,19 +21,22 @@ SOURCES += \
     heuristic_function.cpp \
     main.cpp \
     mainwindow.cpp \
-    node.cpp
+    node.cpp \
+    playback.cpp
 
 HEADERS += \
     aboutus.h \
     eight_puzzle.h \
     heuristic_function.h \
     mainwindow.h \
-    node.h
+    node.h \
+    playback.h
 
 FORMS += \
     aboutus.ui \
     heuristic_function.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    playback.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

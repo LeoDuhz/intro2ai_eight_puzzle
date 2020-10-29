@@ -6,6 +6,7 @@
 #include "qlineedit.h"
 #include "eight_puzzle.h"
 #include "node.h"
+#include "playback.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    vector<node> transferList;
 
 
 private slots:
@@ -43,6 +46,8 @@ private slots:
     void on_h2_clicked();
 
     void on_h3_clicked();
+
+    void on_playback_clicked();
 
 private:
     Ui::MainWindow *ui;

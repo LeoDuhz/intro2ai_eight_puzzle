@@ -211,7 +211,7 @@ void MainWindow::on_continuous_clicked()
     eightpuzzle.readInInitial(ui);
     eightpuzzle.readInFinal(ui);
     eightpuzzle.continueSolve();
-    vector<node> transferList = eightpuzzle.transferNodes;
+    transferList = eightpuzzle.transferNodes;
 
 
     for(int i = 0; i < transferList.size(); i++){
@@ -229,9 +229,9 @@ void MainWindow::on_singlestep_clicked()
 //    Eight_puzzle::actionCount = 0;
     static int count = 0;
 
-    static Eight_puzzle eightpuzzle;
-    static vector<node> transferList;
+
     if (count == 0){
+        Eight_puzzle eightpuzzle;
         eightpuzzle.readInInitial(ui);
         eightpuzzle.readInFinal(ui);
         eightpuzzle.continueSolve();
@@ -265,4 +265,10 @@ void MainWindow::on_h3_clicked()
     node::type = 3;
     ui->algorithm->setText(QString("Algorithm 3"));
     ui->algorithm->setStyleSheet("background:cyan");
+}
+
+void MainWindow::on_playback_clicked()
+{
+    Playback* playback = new Playback(transferList);
+    playback->show();
 }
