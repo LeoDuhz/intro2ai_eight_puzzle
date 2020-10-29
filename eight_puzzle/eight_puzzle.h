@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <sys/time.h>
+#include <QDebug>
 #include "node.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -15,6 +17,8 @@ public:
     Eight_puzzle();
 
     static int actionCount;
+    static int addToOpenListCnt;
+    static double solveTime;
     vector<node> openlist;
     vector<node> closelist;
     int initMatrix[3][3];

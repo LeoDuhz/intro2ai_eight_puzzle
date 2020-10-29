@@ -1,8 +1,11 @@
 #include "eight_puzzle.h"
 #include "qmessagebox.h"
 #include "qstring.h"
+#include <QTime>
 
 int Eight_puzzle::actionCount = 0;
+int Eight_puzzle::addToOpenListCnt = 0;
+double Eight_puzzle::solveTime = 0;
 
 Eight_puzzle::Eight_puzzle()
 {
@@ -193,14 +196,13 @@ bool Eight_puzzle::inCloseList(const int matrix[3][3])
 
 void Eight_puzzle::addToOpenList(const node& newnode)
 {
-    static int addToOpenListCnt = 0;
+    addToOpenListCnt++;
     if(inCloseList(newnode.matrix)) return;
 
     for(int i = 0; i < openlist.size(); i++){
         if (checkMatrixEqual(openlist[i].matrix, newnode.matrix)){
             if(newnode.f < openlist[i].f){
                 openlist.erase(openlist.begin() + i);
-//                qDebug("addToOpenListCnt: %d", ++addToOpenListCnt);
                 openlist.push_back(newnode);
                 return;
             }
@@ -208,7 +210,6 @@ void Eight_puzzle::addToOpenList(const node& newnode)
         }
     }
 
-//    qDebug("addToOpenListCnt: %d", ++addToOpenListCnt);
     openlist.push_back(newnode);
 }
 
@@ -337,6 +338,10 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
 void Eight_puzzle::continueSolve()
 {
     actionCount = 0;
+    addToOpenListCnt = 0;
+    double startTime = (double)clock();
+    QTime timer;
+    timer.start();
     initOpenList();
     if (!reverseOrderExamine()){
         QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
@@ -363,13 +368,16 @@ void Eight_puzzle::continueSolve()
         qDebug("size of openlist: %d", openlist.size());
         qDebug("size of closelist: %d", closelist.size());
 
-        if(openlist.size() == 0){
-            QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
-            return;
-        }
+//        if(openlist.size() == 0){
+//            QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
+//            return;
+//        }
 
     }
-
+    double endTime = (double)clock();
+    solveTime = (endTime - startTime) / 1000;  //ms为单位
+    qDebug("solve time: %f", solveTime);
+    qDebug("node cnt: %d", addToOpenListCnt);
     backSearch(closelist[closelist.size() - 1]);
 }
 
