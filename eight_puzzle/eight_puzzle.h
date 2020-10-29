@@ -27,8 +27,8 @@ public:
 
     int getReverseOrder(vector<int> list);
     bool reverseOrderExamine();
-    void readInInitial(Ui::MainWindow *ui);
-    void readInFinal(Ui::MainWindow *ui);
+    bool readInInitial(Ui::MainWindow *ui);
+    bool readInFinal(Ui::MainWindow *ui);
     bool checkMatrixValid(int matrix[3][3]);
     bool checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3]);
     bool checkIndexValid(int i, int j);

@@ -22,6 +22,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     node.cpp \
+    openlist.cpp \
     playback.cpp
 
 HEADERS += \
@@ -30,12 +31,14 @@ HEADERS += \
     heuristic_function.h \
     mainwindow.h \
     node.h \
+    openlist.h \
     playback.h
 
 FORMS += \
     aboutus.ui \
     heuristic_function.ui \
     mainwindow.ui \
+    openlist.ui \
     playback.ui
 
 # Default rules for deployment.

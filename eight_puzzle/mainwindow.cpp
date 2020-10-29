@@ -208,20 +208,21 @@ void MainWindow::displayTransOnce(int matrix[3][3])
 void MainWindow::on_continuous_clicked()
 {
     Eight_puzzle eightpuzzle;
-    eightpuzzle.readInInitial(ui);
-    eightpuzzle.readInFinal(ui);
-    eightpuzzle.continueSolve();
-    transferList = eightpuzzle.transferNodes;
+    bool iniValid = eightpuzzle.readInInitial(ui);
+    bool finalValid = eightpuzzle.readInFinal(ui);
+    if(iniValid && finalValid){
+        eightpuzzle.continueSolve();
+        transferList = eightpuzzle.transferNodes;
 
+        for(int i = 0; i < transferList.size(); i++){
+            displayTransOnce(transferList[i].matrix);
+            QTime dieTime = QTime::currentTime().addMSecs(500);
+                while( QTime::currentTime() < dieTime )
+                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        }
 
-    for(int i = 0; i < transferList.size(); i++){
-        displayTransOnce(transferList[i].matrix);
-        QTime dieTime = QTime::currentTime().addMSecs(500);
-            while( QTime::currentTime() < dieTime )
-                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     }
 }
-
 
 
 void MainWindow::on_singlestep_clicked()
@@ -229,13 +230,16 @@ void MainWindow::on_singlestep_clicked()
 //    Eight_puzzle::actionCount = 0;
     static int count = 0;
 
-
     if (count == 0){
         Eight_puzzle eightpuzzle;
-        eightpuzzle.readInInitial(ui);
-        eightpuzzle.readInFinal(ui);
-        eightpuzzle.continueSolve();
-        transferList = eightpuzzle.transferNodes;
+        bool iniValid = eightpuzzle.readInInitial(ui);
+        bool finalValid = eightpuzzle.readInFinal(ui);
+        if(iniValid && finalValid){
+            eightpuzzle.continueSolve();
+            transferList = eightpuzzle.transferNodes;
+        }else{
+            return;
+        }
     }
 
     displayTransOnce(transferList[++count].matrix);

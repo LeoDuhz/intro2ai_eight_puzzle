@@ -7,13 +7,21 @@ Teammates: He Zhiye, Li Haoying, Zhang Zijian
 
 
 
-C++/Qt
+C++/Qt :
+
+Kit: Desktop Qt 5.14.0 GCC 64 bit
+
+OS: Ubuntu 18.04
 
 
 
-Reference:
+功能：
 
-1. ​    
+About us
 
-[https://www.d.umn.edu/~jrichar4/8puz.html#:~:text=An%208%20puzzle%20is%20a,in%20the%20%22goal%20state%22.](https://www.d.umn.edu/~jrichar4/8puz.html#:~:text=An 8 puzzle is a,in the "goal state".)
+选择启发式函数算法，不同颜色显示
+
+
+
+
 

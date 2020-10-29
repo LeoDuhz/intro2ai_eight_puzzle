@@ -26,7 +26,7 @@ Eight_puzzle::Eight_puzzle()
 }
 
 //读入初始矩阵
-void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
+bool Eight_puzzle::readInInitial(Ui::MainWindow *ui)
 {
     actionCount = 0;
     initMatrix[0][0] = ui->ini1->text().toInt();
@@ -41,12 +41,12 @@ void Eight_puzzle::readInInitial(Ui::MainWindow *ui)
 
 
     qDebug("get initial matrix!");
-    checkMatrixValid(initMatrix);
+    return checkMatrixValid(initMatrix);
 
 }
 
 //读入目标矩阵
-void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
+bool Eight_puzzle::readInFinal(Ui::MainWindow *ui)
 {
     actionCount = 0;
     finalMatrix[0][0] = ui->final1->text().toInt();
@@ -60,7 +60,7 @@ void Eight_puzzle::readInFinal(Ui::MainWindow *ui)
     finalMatrix[2][2] = ui->final9->text().toInt();
 
     qDebug("get final matrix!");
-    checkMatrixValid(finalMatrix);
+    return checkMatrixValid(finalMatrix);
 
 }
 
@@ -113,7 +113,7 @@ bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
             if (Matrix[i][j] > 9 || Matrix[i][j] < 0){
-                QMessageBox::information(NULL, "Waring", "输入不在0-9范围内,请重新输入", QMessageBox::Yes, QMessageBox::Yes);
+                QMessageBox::information(NULL, "Warning", "输入不在0-9范围内,请重新输入", QMessageBox::Yes, QMessageBox::Yes);
                 return false;
             }
 
@@ -121,7 +121,7 @@ bool Eight_puzzle::checkMatrixValid(int Matrix[3][3])
                 for(int m = 0; m < 3; m++){
                     if (k == i && m == j) continue;
                     if (Matrix[i][j] == Matrix[k][m]){
-                        QMessageBox::information(NULL, "Waring", "有重复输入,请重新输入", QMessageBox::Yes, QMessageBox::Yes);
+                        QMessageBox::information(NULL, "Warning", "有重复输入,请重新输入", QMessageBox::Yes, QMessageBox::Yes);
                         return false;
                     }
                 }
