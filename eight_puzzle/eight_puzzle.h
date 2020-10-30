@@ -21,6 +21,8 @@ public:
     static double solveTime;
     vector<node> openlist;
     vector<node> closelist;
+    vector<vector<node>> olList;
+    vector<vector<node>> clList;
     int initMatrix[3][3];
     int finalMatrix[3][3];
     vector<node> transferNodes;

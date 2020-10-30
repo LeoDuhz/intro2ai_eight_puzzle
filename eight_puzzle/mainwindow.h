@@ -7,6 +7,8 @@
 #include "eight_puzzle.h"
 #include "node.h"
 #include "playback.h"
+#include "openlist.h"
+#include "closelist.h"
 
 using namespace std;
 
@@ -24,6 +26,8 @@ public:
     ~MainWindow();
 
     vector<node> transferList;
+    vector<vector<node>> olList;
+    vector<vector<node>> clList;
 
 
 private slots:
@@ -48,6 +52,10 @@ private slots:
     void on_h3_clicked();
 
     void on_playback_clicked();
+
+    void on_openlist_clicked();
+
+    void on_closelist_clicked();
 
 private:
     Ui::MainWindow *ui;

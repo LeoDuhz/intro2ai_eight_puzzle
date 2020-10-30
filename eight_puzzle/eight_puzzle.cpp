@@ -176,6 +176,7 @@ void Eight_puzzle::initOpenList()
     init.g = 0;
     init.update_f();
     openlist.push_back(init);
+    olList.push_back(openlist);
 }
 
 //找到openlist中最小的一个节点，输出其下标
@@ -216,6 +217,7 @@ void Eight_puzzle::addToOpenList(const node& newnode)
             if(newnode.f < openlist[i].f){
                 openlist.erase(openlist.begin() + i);
                 openlist.push_back(newnode);
+                olList.push_back(openlist);
                 return;
             }
             return;
@@ -223,12 +225,14 @@ void Eight_puzzle::addToOpenList(const node& newnode)
     }
 
     openlist.push_back(newnode);
+    olList.push_back(openlist);
 }
 
 //把节点插入到closelist中
 void Eight_puzzle::addToCloseList(const node& transferNode)
 {
     closelist.push_back(transferNode);
+    clList.push_back(closelist);
 }
 
 //把一个矩阵，根据空格位置(x,y)，以及移动方向direction，进行移动，同时根据g和父节点的index，生成新节点

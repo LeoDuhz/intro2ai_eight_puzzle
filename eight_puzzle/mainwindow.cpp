@@ -213,6 +213,8 @@ void MainWindow::on_continuous_clicked()
     if(iniValid && finalValid){
         eightpuzzle.continueSolve();
         transferList = eightpuzzle.transferNodes;
+        olList = eightpuzzle.olList;
+        clList = eightpuzzle.clList;
 
         for(int i = 0; i < transferList.size(); i++){
             displayTransOnce(transferList[i].matrix);
@@ -237,6 +239,8 @@ void MainWindow::on_singlestep_clicked()
         if(iniValid && finalValid){
             eightpuzzle.continueSolve();
             transferList = eightpuzzle.transferNodes;
+            olList = eightpuzzle.olList;
+            clList = eightpuzzle.clList;
         }else{
             return;
         }
@@ -275,4 +279,16 @@ void MainWindow::on_playback_clicked()
 {
     Playback* playback = new Playback(transferList);
     playback->show();
+}
+
+void MainWindow::on_openlist_clicked()
+{
+    openlist* open_list = new openlist(olList);
+    open_list->show();
+}
+
+void MainWindow::on_closelist_clicked()
+{
+    closelist* close_list = new closelist(clList);
+    close_list->show();
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>openlist</class>
- <widget class="QDialog" name="openlist">
+ <class>closelist</class>
+ <widget class="QDialog" name="closelist">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,20 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QTextBrowser" name="textBrowser">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>60</y>
-     <width>371</width>
-     <height>671</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="start">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>70</x>
      <y>750</y>
      <width>131</width>
      <height>41</height>
@@ -36,10 +26,33 @@
     <string>Start</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>10</y>
+     <width>251</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Display of Closelist&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>60</y>
+     <width>371</width>
+     <height>671</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QPushButton" name="close">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>310</x>
      <y>750</y>
      <width>131</width>
      <height>41</height>
@@ -47,19 +60,6 @@
    </property>
    <property name="text">
     <string>Close</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>10</y>
-     <width>251</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Display of Openlist&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>

@@ -17,6 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     aboutus.cpp \
+    analysis.cpp \
+    closelist.cpp \
     eight_puzzle.cpp \
     heuristic_function.cpp \
     main.cpp \
@@ -27,6 +29,8 @@ SOURCES += \
 
 HEADERS += \
     aboutus.h \
+    analysis.h \
+    closelist.h \
     eight_puzzle.h \
     heuristic_function.h \
     mainwindow.h \
@@ -36,6 +40,8 @@ HEADERS += \
 
 FORMS += \
     aboutus.ui \
+    analysis.ui \
+    closelist.ui \
     heuristic_function.ui \
     mainwindow.ui \
     openlist.ui \

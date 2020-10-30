@@ -18,6 +18,50 @@ Playback::~Playback()
 
 void Playback::displayPlayback(vector<node> transferList)
 {
+    //特殊情况检查
+    if(transferList.size() == 0) return;
+    else if (transferList.size() < 3){
+        QString specialOutput;
+
+        specialOutput = QString::number(transferList[0].matrix[0][0]) + " "
+                    + QString::number(transferList[0].matrix[0][1]) + " "
+                    + QString::number(transferList[0].matrix[0][2]) + " " + "\n";
+
+
+        specialOutput += QString::number(transferList[0].matrix[1][0]) + " "
+                    + QString::number(transferList[0].matrix[1][1]) + " "
+                    + QString::number(transferList[0].matrix[1][2]) + " " + "\n";
+
+
+        specialOutput += QString::number(transferList[0].matrix[2][0]) + " "
+                    + QString::number(transferList[0].matrix[2][1]) + " "
+                    + QString::number(transferList[0].matrix[2][2]) + " " + "\n"
+                    + QString("- - - - - - - - - - - - - - - ") + "\n";
+
+        ui->textBrowser->setText(specialOutput);
+
+        for(int i = 1; i < transferList.size(); i++){
+            QString specialOutput;
+            specialOutput = QString::number(transferList[i].matrix[0][0]) + " "
+                        + QString::number(transferList[i].matrix[0][1]) + " "
+                        + QString::number(transferList[i].matrix[0][2]) + " " + "\n";
+
+
+            specialOutput += QString::number(transferList[i].matrix[1][0]) + " "
+                        + QString::number(transferList[i].matrix[1][1]) + " "
+                        + QString::number(transferList[i].matrix[1][2]) + " " + "\n";
+
+
+            specialOutput += QString::number(transferList[i].matrix[2][0]) + " "
+                        + QString::number(transferList[i].matrix[2][1]) + " "
+                        + QString::number(transferList[i].matrix[2][2]) + " " + "\n"
+                        + QString("- - - - - - - - - - - - - - - ") + "\n";
+
+            ui->textBrowser->append(specialOutput);
+        }
+        return;
+    }
+
     //初始打印出前三个矩阵
     QString firstOutput;
     firstOutput = QString::number(transferList[0].matrix[0][0]) + " "

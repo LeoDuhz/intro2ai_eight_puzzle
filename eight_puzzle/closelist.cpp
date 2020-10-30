@@ -1,29 +1,29 @@
-#include "openlist.h"
-#include "ui_openlist.h"
+#include "closelist.h"
+#include "ui_closelist.h"
 #include "qelapsedtimer.h"
 #include <QTime>
 
-openlist::openlist(vector<vector<node>> olList, QWidget *parent) :
+closelist::closelist(vector<vector<node>> clList, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::openlist)
+    ui(new Ui::closelist)
 {
     ui->setupUi(this);
 
-    this->olList = olList;
+    this->clList = clList;
     QApplication::setQuitOnLastWindowClosed(true);
 
 }
 
-openlist::~openlist()
+closelist::~closelist()
 {
     delete ui;
 }
 
-void openlist::loopDisplay()
+void closelist::loopDisplay()
 {
-    for(int i = 0; i < olList.size(); i++){
+    for(int i = 0; i < clList.size(); i++){
         if (isWindowClosed) return;
-        displayPlayback(olList[i]);
+        displayPlayback(clList[i]);
         qDebug("here");
         QTime dieTime = QTime::currentTime().addMSecs(10);
             while( QTime::currentTime() < dieTime )
@@ -33,7 +33,7 @@ void openlist::loopDisplay()
 }
 
 
-void openlist::displayPlayback(vector<node> transferList)
+void closelist::displayPlayback(vector<node> transferList)
 {
     //特殊情况检查
     if(transferList.size() == 0) return;
@@ -294,15 +294,16 @@ void openlist::displayPlayback(vector<node> transferList)
 }
 
 
-void openlist::on_start_clicked()
+void closelist::on_start_clicked()
 {
     ui->start->setStyleSheet("background:cyan");
     loopDisplay();
     ui->start->setStyleSheet("background:white");
 }
 
-void openlist::on_close_clicked()
+void closelist::on_close_clicked()
 {
     isWindowClosed = true;
     this->close();
 }
+
