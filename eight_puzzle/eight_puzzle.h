@@ -20,6 +20,7 @@ public:
     static int addToOpenListCnt;
     static double solveTime;
     static int nodeCnt;
+    static int singleStepCount;
     vector<node> openlist;
     vector<node> closelist;
     vector<vector<node>> olList;

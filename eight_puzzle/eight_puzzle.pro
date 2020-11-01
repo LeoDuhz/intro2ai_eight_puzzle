@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     aboutus.cpp \
     analysis.cpp \
+    beforetree.cpp \
     closelist.cpp \
     eight_puzzle.cpp \
     heuristic_function.cpp \
@@ -26,18 +27,21 @@ SOURCES += \
     mainwindow.cpp \
     node.cpp \
     openlist.cpp \
-    playback.cpp
+    playback.cpp \
+    searchtree.cpp
 
 HEADERS += \
     aboutus.h \
     analysis.h \
+    beforetree.h \
     closelist.h \
     eight_puzzle.h \
     heuristic_function.h \
     mainwindow.h \
     node.h \
     openlist.h \
-    playback.h
+    playback.h \
+    searchtree.h
 
 FORMS += \
     aboutus.ui \
@@ -46,7 +50,8 @@ FORMS += \
     heuristic_function.ui \
     mainwindow.ui \
     openlist.ui \
-    playback.ui
+    playback.ui \
+    searchtree.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

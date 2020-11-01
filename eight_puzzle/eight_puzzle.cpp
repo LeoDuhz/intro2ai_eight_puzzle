@@ -219,7 +219,7 @@ void Eight_puzzle::addToOpenList(const node& newnode)
             if(newnode.f < openlist[i].f){
                 openlist.erase(openlist.begin() + i);
                 openlist.push_back(newnode);
-                olList.push_back(openlist);
+//                olList.push_back(openlist);
                 return;
             }
             return;
@@ -227,7 +227,7 @@ void Eight_puzzle::addToOpenList(const node& newnode)
     }
 
     openlist.push_back(newnode);
-    olList.push_back(openlist);
+//    olList.push_back(openlist);
 }
 
 //把节点插入到closelist中
@@ -353,7 +353,6 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
         moveNode(matrix, x, y, transferNode.g + 1, indexInCloseList, 2);
         moveNode(matrix, x, y, transferNode.g + 1, indexInCloseList, 3);
     }
-
 }
 
 bool Eight_puzzle::debugCheck()
@@ -406,6 +405,7 @@ bool Eight_puzzle::continueSolve()
 
         //根据这个节点，进行上下左右尝试扩展
         expandNode(transferNode, closelist.size() - 1);
+        olList.push_back(openlist);
 
 
 //        qDebug("size of openlist: %d", openlist.size());
@@ -425,6 +425,10 @@ bool Eight_puzzle::continueSolve()
     //回溯路径，将结果保存在transferNodes这个vector中
     backSearch(closelist[closelist.size() - 1]);
     qDebug("node Cnt: %d", nodeCnt);
+    qDebug("size of olist 0: %d", olList[0].size());
+    qDebug("size of olist 1: %d", olList[1].size());
+    qDebug("size of olist 2: %d", olList[2].size());
+
     return true;
 }
 

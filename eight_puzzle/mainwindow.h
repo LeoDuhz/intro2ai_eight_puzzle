@@ -62,6 +62,8 @@ private slots:
 
     void on_Analysis_clicked();
 
+    void on_searchtree_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLineEdit* judgeNum(std::vector<int> list, string s, int i);

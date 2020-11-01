@@ -3,6 +3,8 @@
 #include "aboutus.h"
 #include "heuristic_function.h"
 #include "qelapsedtimer.h"
+#include "beforetree.h"
+#include "searchtree.h"
 #include <QBarSet>
 #include <QTime>
 #include <QtCharts>
@@ -406,4 +408,19 @@ void MainWindow::on_Analysis_clicked()
     chartview2->setRenderHint(QPainter::Antialiasing);
     chartview2->setVisible(true);
     chartview2->resize(960, 720);
+}
+
+void MainWindow::on_searchtree_clicked()
+{
+
+    beforetree before(olList);
+    before.Father_Baby();
+    qDebug("before.treefather size %d", before.Tree_Father.size());
+    searchTree* search = new searchTree(before.Tree_Father, before.TreeBaby, this);
+    qDebug("get final tree!");
+    search->show();
+    qDebug("after shown1");
+    static int cnt = 0;
+    int num[10] = {0,1,2,3,4,5,6,7,8,9};
+    //    search->draw_tree(before.TreeBaby, before.Tree_Father,num[cnt++]);
 }

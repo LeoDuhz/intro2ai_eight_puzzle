@@ -393,7 +393,7 @@
      <string>PlayBack</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="searchtree">
     <property name="geometry">
      <rect>
       <x>640</x>
