@@ -6,6 +6,7 @@
 int Eight_puzzle::actionCount = 0;
 int Eight_puzzle::addToOpenListCnt = 0;
 double Eight_puzzle::solveTime = 0;
+int Eight_puzzle::nodeCnt = 0;
 
 Eight_puzzle::Eight_puzzle()
 {
@@ -210,6 +211,7 @@ bool Eight_puzzle::inCloseList(const int matrix[3][3])
 void Eight_puzzle::addToOpenList(const node& newnode)
 {
     addToOpenListCnt++;
+    nodeCnt++;
     if(inCloseList(newnode.matrix)) return;
 
     for(int i = 0; i < openlist.size(); i++){
@@ -354,9 +356,22 @@ void Eight_puzzle::expandNode(const node& transferNode, int indexInCloseList)
 
 }
 
-//求解八数码问题
-void Eight_puzzle::continueSolve()
+bool Eight_puzzle::debugCheck()
 {
+    for(int i = 0; i < closelist.size(); i++)
+    {
+        for(int j = i + 1; j < closelist.size(); j++)
+        {
+            if (checkMatrixEqual(closelist[i].matrix, closelist[j].matrix)) return true;
+        }
+    }
+    return false;
+}
+
+//求解八数码问题
+bool Eight_puzzle::continueSolve()
+{
+    nodeCnt = 0;      //开始记录节点数
     actionCount = 0;  //开始记录步数
     addToOpenListCnt = 0;
     double startTime = (double)clock();  //计时开始
@@ -367,7 +382,7 @@ void Eight_puzzle::continueSolve()
     //检查是否有解，若无解，直接报错然后返回
     if (!reverseOrderExamine()){
         QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
-        return;
+        return false;
     }
 
     while (openlist.size() != 0)
@@ -385,7 +400,7 @@ void Eight_puzzle::continueSolve()
 
         //如果openlist最小的这个节点不再closelist中，那么加入closelist中
         if(!inCloseList(transferNode.matrix)) addToCloseList(transferNode);
-
+//        if(debugCheck()) qDebug("leodubug: closelist has same nodes!");   //检查closelist中有没有重复的节点
         //将该节点从openlist中去除
         openlist.erase(openlist.begin() + min_index);
 
@@ -393,8 +408,8 @@ void Eight_puzzle::continueSolve()
         expandNode(transferNode, closelist.size() - 1);
 
 
-        qDebug("size of openlist: %d", openlist.size());
-        qDebug("size of closelist: %d", closelist.size());
+//        qDebug("size of openlist: %d", openlist.size());
+//        qDebug("size of closelist: %d", closelist.size());
 
 //        if(openlist.size() == 0){
 //            QMessageBox::information(NULL, "Waring", "此状态下无解", QMessageBox::Yes, QMessageBox::Yes);
@@ -406,10 +421,11 @@ void Eight_puzzle::continueSolve()
     double endTime = (double)clock();
     solveTime = (endTime - startTime) / 1000;  //ms为单位
     qDebug("solve time: %f", solveTime);
-    qDebug("node cnt: %d", addToOpenListCnt);
 
     //回溯路径，将结果保存在transferNodes这个vector中
     backSearch(closelist[closelist.size() - 1]);
+    qDebug("node Cnt: %d", nodeCnt);
+    return true;
 }
 
 //回溯closelist，找到路径

@@ -3,7 +3,13 @@
 #include "aboutus.h"
 #include "heuristic_function.h"
 #include "qelapsedtimer.h"
+#include <QBarSet>
 #include <QTime>
+#include <QtCharts>
+
+QT_CHARTS_USE_NAMESPACE
+
+int MainWindow::singleStepCount = 0;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -106,7 +112,7 @@ void MainWindow::on_algorithm_clicked()
 
 void MainWindow::on_initial_set_clicked()
 {
-    Eight_puzzle::actionCount = 0;
+    singleStepCount = 0;
     std::vector<int> initial;
     for(int i = 0; i < 9; i++) initial.push_back(i);
     std::random_shuffle(initial.begin(), initial.end());
@@ -135,7 +141,7 @@ void MainWindow::on_initial_set_clicked()
 
 void MainWindow::on_initial_set_final_clicked()
 {
-    Eight_puzzle::actionCount = 0;
+    singleStepCount = 0;
     std::vector<int> final;
 //    for(int i = 0; i < 9; i++) final.push_back(i);
 //    std::random_shuffle(final.begin(), final.end());
@@ -211,7 +217,8 @@ void MainWindow::on_continuous_clicked()
     bool iniValid = eightpuzzle.readInInitial(ui);
     bool finalValid = eightpuzzle.readInFinal(ui);
     if(iniValid && finalValid){
-        eightpuzzle.continueSolve();
+        bool canSolve = eightpuzzle.continueSolve();
+        if (!canSolve) return;
         transferList = eightpuzzle.transferNodes;
         olList = eightpuzzle.olList;
         clList = eightpuzzle.clList;
@@ -229,15 +236,14 @@ void MainWindow::on_continuous_clicked()
 
 void MainWindow::on_singlestep_clicked()
 {
-//    Eight_puzzle::actionCount = 0;
-    static int count = 0;
-
-    if (count == 0){
+//    Eight_puzzle::actionsingleStepCount = 0;
+    if (singleStepCount == 0){
         Eight_puzzle eightpuzzle;
         bool iniValid = eightpuzzle.readInInitial(ui);
         bool finalValid = eightpuzzle.readInFinal(ui);
         if(iniValid && finalValid){
-            eightpuzzle.continueSolve();
+            bool canSolve = eightpuzzle.continueSolve();
+            if (!canSolve) return;
             transferList = eightpuzzle.transferNodes;
             olList = eightpuzzle.olList;
             clList = eightpuzzle.clList;
@@ -246,11 +252,11 @@ void MainWindow::on_singlestep_clicked()
         }
     }
 
-    displayTransOnce(transferList[++count].matrix);
+    displayTransOnce(transferList[++singleStepCount].matrix);
     QTime dieTime = QTime::currentTime().addMSecs(100);
     while( QTime::currentTime() < dieTime ) QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
-    if (count == transferList.size() - 1) count = 0;
+    if (singleStepCount == transferList.size() - 1) singleStepCount = 0;
 
 }
 
@@ -291,4 +297,113 @@ void MainWindow::on_closelist_clicked()
 {
     closelist* close_list = new closelist(clList);
     close_list->show();
+}
+
+void MainWindow::on_Analysis_clicked()
+{
+    int nodeCnt1, nodeCnt2, nodeCnt3;
+    double time1, time2, time3;
+    vector<int> nodeCntList;
+    vector<double> timeList;
+
+    node::type = 1;
+    Eight_puzzle eightpuzzle1;
+    bool iniValid1 = eightpuzzle1.readInInitial(ui);
+    bool finalValid1 = eightpuzzle1.readInFinal(ui);
+    eightpuzzle1.continueSolve();
+    nodeCnt1 = eightpuzzle1.nodeCnt;
+    time1 = eightpuzzle1.solveTime;
+    nodeCntList.push_back(nodeCnt1);
+    timeList.push_back(time1);
+    node::type = 2;
+    Eight_puzzle eightpuzzle2;
+    bool iniValid2 = eightpuzzle2.readInInitial(ui);
+    bool finalValid2 = eightpuzzle2.readInFinal(ui);
+    eightpuzzle2.continueSolve();
+    nodeCnt2 = eightpuzzle2.nodeCnt;
+    time2 = eightpuzzle2.solveTime;
+    nodeCntList.push_back(nodeCnt2);
+    timeList.push_back(time2);
+    node::type = 3;
+    Eight_puzzle eightpuzzle3;
+    bool iniValid3 = eightpuzzle3.readInInitial(ui);
+    bool finalValid3 = eightpuzzle3.readInFinal(ui);
+    eightpuzzle3.continueSolve();
+    nodeCnt3 = eightpuzzle3.nodeCnt;
+    time3 = eightpuzzle3.solveTime;
+    nodeCntList.push_back(nodeCnt3);
+    timeList.push_back(time3);
+
+    QBarSet *set0 = new QBarSet("nodeCnt");
+    QBarSet *set1 = new QBarSet("time(ms)");
+
+    *set0 << nodeCnt1 << nodeCnt2 << nodeCnt3;
+    *set1 << time1 << time2 << time3;
+
+    set1->setColor(QColor(100,200,0));
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set0);
+    series->setBarWidth(0.6);
+    series->setVisible(true);
+    series->setLabelsVisible(true);
+
+    QBarSeries *series2 = new QBarSeries();
+    series2->append(set1);
+    series2->setBarWidth(0.6);
+    series2->setVisible(true);
+    series2->setLabelsVisible(true);
+
+    //建表
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+
+    chart->setTitle("不同启发式函数节点数分析");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categories;
+    categories << "h1:not in position" << "h2:mahatten dist" << "h3:reverse order";
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+    chart->createDefaultAxes();//创建默认的左侧的坐标轴（根据 QBarSet 设置的值）
+    chart->setAxisX(axis, series);//设置坐标轴
+
+//    QValueAxis *axisY = new QValueAxis;
+//    axisY->setLabelFormat("%d");
+//    axisY->setRange(0, 2000);
+//    chart->setAxisY(axisY);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);//设置图例的显示位置在底部
+
+    QChartView *chartview = new QChartView(chart);
+    chartview->setChart(chart);
+    chartview->setRenderHint(QPainter::Antialiasing);
+    chartview->setVisible(true);
+    chartview->resize(960, 720);
+
+
+
+    QChart *chart2 = new QChart();
+    chart2->addSeries(series2);
+    chart2->createDefaultAxes();
+
+    chart2->setTitle("不同启发式函数时间分析");
+    chart2->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categories2;
+    categories2 << "h1:not in position" << "h2:mahatten dist" << "h3:reverse order";
+    QBarCategoryAxis *axis2 = new QBarCategoryAxis();
+    axis2->append(categories2);
+    chart2->createDefaultAxes();//创建默认的左侧的坐标轴（根据 QBarSet 设置的值）
+    chart2->setAxisX(axis2, series2);//设置坐标轴
+
+    chart2->legend()->setVisible(true);
+    chart2->legend()->setAlignment(Qt::AlignBottom);//设置图例的显示位置在底部
+
+    QChartView *chartview2 = new QChartView(chart2);
+    chartview2->setChart(chart2);
+    chartview2->setRenderHint(QPainter::Antialiasing);
+    chartview2->setVisible(true);
+    chartview2->resize(960, 720);
 }

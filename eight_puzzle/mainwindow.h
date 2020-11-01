@@ -9,6 +9,7 @@
 #include "playback.h"
 #include "openlist.h"
 #include "closelist.h"
+#include "analysis.h"
 
 using namespace std;
 
@@ -24,6 +25,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    static int singleStepCount;
 
     vector<node> transferList;
     vector<vector<node>> olList;
@@ -56,6 +59,8 @@ private slots:
     void on_openlist_clicked();
 
     void on_closelist_clicked();
+
+    void on_Analysis_clicked();
 
 private:
     Ui::MainWindow *ui;

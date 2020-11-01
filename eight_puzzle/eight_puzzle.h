@@ -19,6 +19,7 @@ public:
     static int actionCount;
     static int addToOpenListCnt;
     static double solveTime;
+    static int nodeCnt;
     vector<node> openlist;
     vector<node> closelist;
     vector<vector<node>> olList;
@@ -37,6 +38,8 @@ public:
     vector<int> findZeroPos(int matrix[3][3]);
 
 
+    bool debugCheck();
+
     void initOpenList();
     void addToOpenList(const node& newnode);
     void addToCloseList(const node& transferNode);
@@ -45,7 +48,7 @@ public:
     void moveNode(int matrix[3][3], int x, int y, int g, int parentIndex, int direction);
     void expandNode(const node& transferNode, int indexInCloseList);
 
-    void continueSolve();
+    bool continueSolve();
 
     void backSearch(node& finalNode);
 

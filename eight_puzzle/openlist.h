@@ -23,6 +23,7 @@ public:
     void loopDisplay();
 
     vector<vector<node>> olList;
+    int delay = 300;
 
 private slots:
     void on_start_clicked();

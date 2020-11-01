@@ -20,6 +20,7 @@ public:
     void loopDisplay();
 
     vector<vector<node>> clList;
+    int delay = 300;
 
 private slots:
     void on_start_clicked();
