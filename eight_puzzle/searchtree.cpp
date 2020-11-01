@@ -18,6 +18,9 @@
 #define A_matrix 42//格子的大小
 #define S_matrix 10//字体大小
 
+
+int searchTree::printCnt = 0;
+
 searchTree::searchTree(vector<node> treefather, vector<vector<node>>treebaby, QMainWindow *parent ) :
     QMainWindow(parent),
     ui(new Ui::searchTree)
@@ -37,15 +40,42 @@ searchTree::~searchTree()
 
 void searchTree::paintEvent(QPaintEvent *event)
 {
-    qDebug("in paintEvent!");
     QWidget::paintEvent(event);
 
     QPainter painter(this);
     QPen pen;
-    draw_tree(treebaby, treefather,90, painter, pen);
-//    painter.drawLine(QPoint(0, 0), QPoint(100, 100));
-    qDebug("after paintEvent!");
+
+//    if (printCnt == 0){
+//    erase();
+    painter.setBrushOrigin(0,0);
+    draw_tree(treebaby, treefather, printCnt, painter, pen);
+    setUpdatesEnabled(true);
+//    QTime dieTime = QTime::currentTime().addMSecs(100);
+//    while( QTime::currentTime() < dieTime )
+//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+//    }
+//    else if (printCnt == 1){
+//        for(int i = 0; i < 50; i++)
+//        {
+//            draw_tree(treebaby, treefather, i, painter, pen);
+//                QTime dieTime = QTime::currentTime().addMSecs(500);
+//                while( QTime::currentTime() < dieTime )
+//                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+//            if(printCnt == 2){
+//                return;
+//            }
+//        }
+//    }
+//    else if (printCnt == 2){
+//        return;
+//    }
+//    QTime dieTime = QTime::currentTime().addMSecs(500);
+//    while( QTime::currentTime() < dieTime )
+//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
 }
+
 
 
 
@@ -97,7 +127,6 @@ void searchTree::draw_brunch(vector<node> Babynode, long long int center_x,long 
 }
 
 
-
 void searchTree::draw_tree(vector<vector<node>> TreeBaby, vector<node> Tree_Father, int num, QPainter& painter, QPen& pen)
 {
 
@@ -139,7 +168,6 @@ void searchTree::draw_tree(vector<vector<node>> TreeBaby, vector<node> Tree_Fath
 
     }
 }
-
 
 
 void searchTree::deepFather(vector<node> Tree_Father, vector<vector<node>> TreeBaby){
@@ -212,3 +240,15 @@ bool searchTree::checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][
 
 
 
+
+void searchTree::on_step_clicked()
+{
+    printCnt = ui->layer->text().toInt();
+
+    repaint();
+}
+
+void searchTree::on_close_clicked()
+{
+    this->close();
+}

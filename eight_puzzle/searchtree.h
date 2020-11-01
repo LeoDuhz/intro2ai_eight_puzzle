@@ -18,6 +18,8 @@ class searchTree : public QMainWindow
     Q_OBJECT
 
 public:
+    static int printCnt;
+
     vector<vector<node>> deep;
     int depth = 0;
     int wedth = 0;
@@ -28,7 +30,7 @@ public:
     explicit searchTree(vector<node> treefather, vector<vector<node>>treebaby, QMainWindow *parent = nullptr);
     bool checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3]);
 
-   // void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event);
     void draw_tree(vector<vector<node>> TreeBaby, vector<node> Tree_Father,int n ,QPainter& painter, QPen& pen);
     void draw_brunch(vector<node> Babynode, long long int center_x,long long int center_y,  long long int child_x,long long int child_y,QPainter& painter, QPen &pen);
     void deepFather(vector<node> Tree_Father,vector<vector<node>> TreeBaby);
@@ -36,7 +38,12 @@ public:
     void deeppush(vector<vector<node>> TreeBaby);
 
 protected:
-    void paintEvent(QPaintEvent *event);
+//    void paintEvent(QPaintEvent *event);
+
+private slots:
+    void on_step_clicked();
+
+    void on_close_clicked();
 
 private:
     Ui::searchTree *ui;
