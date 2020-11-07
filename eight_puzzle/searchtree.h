@@ -34,7 +34,7 @@ public:
     void draw_tree(vector<vector<node>> TreeBaby, vector<node> Tree_Father,int n ,QPainter& painter, QPen& pen);
     void draw_brunch(vector<node> Babynode, long long int center_x,long long int center_y,  long long int child_x,long long int child_y,QPainter& painter, QPen &pen);
     void deepFather(vector<node> Tree_Father,vector<vector<node>> TreeBaby);
-    void draw_one_matrix(int matrix[3][3],long long int center_x,long long int center_y, QPainter &painter, QPen &pen);
+    void draw_one_matrix(node Node,long long int center_x,long long int center_y, QPainter &painter, QPen &pen);
     void deeppush(vector<vector<node>> TreeBaby);
 
 protected:
