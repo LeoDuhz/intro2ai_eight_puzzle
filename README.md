@@ -7,7 +7,17 @@ Implements of eight puzzle problems，using A* algorithm
 
 
 
+## Getting Started
+
 C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
+
+```bash
+$ git clone git@github.com:LeoDuhz/intro2ai.git
+$ cd intro2ai
+$ cd eight_puzzle
+```
+
+then you may build with gcc using QtCreator, and have fun with that eight puzzle problem
 
 
 
