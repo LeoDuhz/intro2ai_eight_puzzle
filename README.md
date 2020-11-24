@@ -38,7 +38,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 入的是目标节点,那么搜索结束,通过回溯找到整个路径,这个过程中也涉及重复性的检查,
 最终得到结果。
 
-![Screenshot from 2020-11-24 15-55-02](https://github.com/LeoDuhz/intro2ai/master/image/https://github.com/LeoDuhz/intro2ai/blob/master/image/Screenshot%20from%202020-11-24%2015-55-02.png)
+![Screenshot from 2020-11-24 15-55-02](https://github.com/LeoDuhz/intro2ai/master/image/https://github.com/LeoDuhz/intro2ai//master/image/Screenshot%20from%202020-11-24%2015-55-02.png)
 
 对于 A*算法,启发式函数是至关重要的一个环节,一个好的启发式函数会大大有利于搜
 素的时间的缩短和搜索过程的简化,本次算法采用了不同中的启发式函数,下面分别予以说
