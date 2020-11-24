@@ -38,7 +38,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 入的是目标节点,那么搜索结束,通过回溯找到整个路径,这个过程中也涉及重复性的检查,
 最终得到结果。
 
-![](image/Screenshot from 2020-11-24 15-55-02.png)
+<img src="image/Screenshot from 2020-11-24 15-55-02.png" style="zoom:80%;" />
 
 对于 A*算法,启发式函数是至关重要的一个环节,一个好的启发式函数会大大有利于搜
 素的时间的缩短和搜索过程的简化,本次算法采用了不同中的启发式函数,下面分别予以说
@@ -48,7 +48,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 一个数之前比这个数大的个数,在八数码问题中不考虑 0,然后将所有的逆序数相加就是这
 个情境下的逆序数。
 
-![Screenshot from 2020-11-24 15-56-44](image/Screenshot from 2020-11-24 15-56-44.png)
+<img src="image/Screenshot from 2020-11-24 15-56-44.png" alt="Screenshot from 2020-11-24 15-56-44" style="zoom:80%;" />
 
 ## 2.2 程序设计总体架构与功能实现
 
@@ -58,7 +58,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 
 程序设计采用C++编程语言，采用Qt这个平台进行可视化，主要的代码架构如下：
 
-![Screenshot from 2020-11-24 15-59-32](image/Screenshot from 2020-11-24 15-59-32.png)
+<img src="image/Screenshot from 2020-11-24 15-59-32.png" alt="Screenshot from 2020-11-24 15-59-32" style="zoom:80%;" />
 
 每一个部分的功能在后面都会被详细说明，也会在附件中有专门的mp4文件展示我们程序的运行。
 
@@ -74,7 +74,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 
 下方按键包括单步执行，连续执行，搜索过程回放，openlist、closelist变化动态展示，搜索树展示，算法分析表格实时分析呈现。
 
-![Screenshot from 2020-11-24 16-00-41](image/Screenshot from 2020-11-24 16-00-41.png)
+<img src="image/Screenshot from 2020-11-24 16-00-41.png" alt="Screenshot from 2020-11-24 16-00-41" style="zoom:80%;" />
 
 这些按键对应了内部的复杂算法和程序设计，下面也会介绍。
 
@@ -90,7 +90,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 
 算法的选择在内部是通过node这个类的一个静态成员变量实现的，静态成员变量的特点就是保存在堆内，可以通过修改静态成员变量，来使得所有节点都采用同一个启发式函数。通过槽函数的触发，内部的启发式函数就修改为用户希望的函数，同时通过QT的控件的相关设置改变颜色。
 
-![Screenshot from 2020-11-24 16-02-59](image/Screenshot from 2020-11-24 16-02-59.png)
+<img src="image/Screenshot from 2020-11-24 16-02-59.png" alt="Screenshot from 2020-11-24 16-02-59" style="zoom:80%;" />
 
 
 
@@ -102,7 +102,7 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 
 当然，作为一个面向用户的可视化界面，我们不能保证用户的输入或者随即化的输入都有解，所以在读入的时候就进行了数组范围（0-9）的检查，进行了数字输入重复性检查，进行了八数码问题是否有解的检查，这样也避免进入死循环影响程序运行。
 
-![Screenshot from 2020-11-24 16-04-23](image/Screenshot from 2020-11-24 16-04-23.png)
+<img src="image/Screenshot from 2020-11-24 16-04-23.png" alt="Screenshot from 2020-11-24 16-04-23" style="zoom:80%;" />
 
 ![Screenshot from 2020-11-24 16-05-01](image/Screenshot from 2020-11-24 16-05-01.png)
 
@@ -112,15 +112,15 @@ C++/Qt : Desktop Qt 5.14.0 GCC 64 bit, Ubuntu 18.04
 
 这三个部分的展示内容大同小异，所以放在一起说明。openlist和closelist的展示首先涉及的就是存储问题，我设计了一个二维向量vector<vector<node>>进行存储，在A*算法搜索的每一步都进行存储，然后输出的时候要进行相应的格式化，以及与进程有关的延时处理，然后就在屏幕上展示出我们当前搜索的openlist和closelist变化过程。
 
-![Screenshot from 2020-11-24 16-05-53](image/Screenshot from 2020-11-24 16-05-53.png)
+<img src="image/Screenshot from 2020-11-24 16-05-53.png" alt="Screenshot from 2020-11-24 16-05-53" style="zoom:80%;" />
 
-![Screenshot from 2020-11-24 16-06-54](image/Screenshot from 2020-11-24 16-06-54.png)
+<img src="image/Screenshot from 2020-11-24 16-06-54.png" alt="Screenshot from 2020-11-24 16-06-54" style="zoom:80%;" />
 
 ### 2.2.7 启发式函数性能实时分析
 
 启发式函数性能的实时分析就是通过节点数统计、程序运行时间等静态变量进行统计，然后用户点击analysis，会触发内部的槽函数，程序就会在后台进行当前输入矩阵八数码问题的求解，然后得到的结果通过qtcharts进行实时可视化，兼顾数据与美观。
 
-![Screenshot from 2020-11-24 16-07-45](image/Screenshot from 2020-11-24 16-07-45.png)
+<img src="image/Screenshot from 2020-11-24 16-07-45.png" alt="Screenshot from 2020-11-24 16-07-45" style="zoom:80%;" />
 
 ### 2.2.8 搜索树的构建
 
@@ -140,7 +140,7 @@ TreeBaby:
 
 父节点的子节点由于是openlist中新增的，所以相邻的第一个openlist中缺少了此节点。所以从olList中相邻的两个vector<node>中，找到前者比后者少的节点。这些节点就是对应的父节点的子节点，加入Tree_Baby中;并把Tree_Baby中在后续先作为父节点的节点放在前面。再将每次的Tree_Baby加入到TreeBaby，由此TreeBaby的类型为vector<vector<node>>。
 
-![Screenshot from 2020-11-24 16-08-54](image/Screenshot from 2020-11-24 16-08-54.png)
+<img src="image/Screenshot from 2020-11-24 16-08-54.png" alt="Screenshot from 2020-11-24 16-08-54" style="zoom:80%;" />
 
 l bool checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3])：确定两个矩阵是否相等。相等返回1，否则返回0。
 
@@ -160,13 +160,13 @@ l void deeppush(vector<vector<node>> TreeBaby)：用vector<vector<node>> deep储
 
 l bool checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3])：确定两个矩阵是否相等。相等返回1，否则返回0。
 
-![Screenshot from 2020-11-24 16-09-38](image/Screenshot from 2020-11-24 16-09-38.png)
+<img src="image/Screenshot from 2020-11-24 16-09-38.png" alt="Screenshot from 2020-11-24 16-09-38" style="zoom:80%;" />
 
  
 
 最终效果如下：
 
-![Screenshot from 2020-11-24 16-10-08](image/Screenshot from 2020-11-24 16-10-08.png)
+<img src="image/Screenshot from 2020-11-24 16-10-08.png" alt="Screenshot from 2020-11-24 16-10-08" style="zoom:80%;" />
 
 # 3 比较分析
 
@@ -174,15 +174,15 @@ l bool checkMatrixEqual(const int Matrix1[3][3], const int Matrix2[3][3])：确�
 h1:用不在位置的数码个数作为启发式函数,计算与目标节点的距离实际值,搜索的效率很低,能得到最优解。
 对于不在位置的数码个数,若给予返回值一个权重 k,A*的表现会有所不同。进行性能测试时,取 100 组数据的结果,权重 k 取 9,得到如下的时间表:
 
-![Screenshot from 2020-11-24 16-11-48](image/Screenshot from 2020-11-24 16-11-48.png)
+<img src="image/Screenshot from 2020-11-24 16-11-48.png" alt="Screenshot from 2020-11-24 16-11-48" style="zoom:80%;" />
 
 可以看出时间相差极大。通过对不同 K 值下算法所耗时间和 OPEN 表 CLOSE 表中节点数作为对算法性能的评估,建立可视化的权重 K 关于算法性能的折线图,图表如下,评价函数为 f(x)=g(x)+k*h1(x):
 
-![Screenshot from 2020-11-24 16-12-47](image/Screenshot from 2020-11-24 16-12-47.png)
+<img src="image/Screenshot from 2020-11-24 16-12-47.png" alt="Screenshot from 2020-11-24 16-12-47" style="zoom:80%;" />
 
 可以看到,K 在 0 变化到 1 的过程中,算法耗时和拓展节点快速下降,之后平稳下降一段,最后基本收敛到一个非常小的值附近。可以认为在 K 值较小的情况下,f(x)受 h(n)影响较小,算法拥有部分广度搜索算法的特性,在 k=0 时直接退化为广度优先搜索,那么效率就是特别慢的。但持续增加 K 值直到足够大的时候,前面的 g(n)已经几乎可以忽略,算法退化为贪婪搜索,所以这时候改变权重并不会得到更优的性能。为验证我们所得结论,我们创建新的评估函数:f(x)=g(x)+k_1*h_1(x)+k_2*h_2( ),其中 h_1 (x)为曼哈顿距离,h_2 (x)为错位棋子数,对其进行三维参数可视化。
 
-![Screenshot from 2020-11-24 16-21-22](image/Screenshot from 2020-11-24 16-21-22.png)
+<img src="image/Screenshot from 2020-11-24 16-21-22.png" alt="Screenshot from 2020-11-24 16-21-22" style="zoom:80%;" />
 
 # 4 优化分析
 
@@ -191,7 +191,7 @@ h1:用不在位置的数码个数作为启发式函数,计算与目标节点的�
 在搜索过程中想要提高搜索效率,必不可少的是判重操作,我们利用哈希表进行优化。hash 表通过在存储位置和数据值之间建立映射关系,将操作的时间复杂度降低为 O(1)。hash 函数的作用就是建立存储位置和数据值间的映射关系。将数据存入哈希表时,利用哈希函数为该数据安排存储位置;查找指定值数据时,也按照哈希函数得到目标索引。
 利用 hash 表判重,hash 函数的选取比较重要,需要避免冲突现象,即不同的状态对应同一函数值。程序中的 hash 函数就是一个映射函数,将 9 个数映射成 1 个 9 位数,又将这个 9 位数缩小,映射到较小的范围之中。然后就可以将 hash 函数应用于 closelist 和openlist 的创建。在把节点加入 openlist 前先用 hash 判重可以节省时间消耗。
 
-![Screenshot from 2020-11-24 16-23-05](image/Screenshot from 2020-11-24 16-23-05.png)
+<img src="image/Screenshot from 2020-11-24 16-23-05.png" alt="Screenshot from 2020-11-24 16-23-05" style="zoom:80%;" />
 
 
 
@@ -220,6 +220,6 @@ ret 计数。
 数,数值为调换时剩余的数组长度。
 3、Mergesort(int *data,int left,int right):递归。
 
-![Screenshot from 2020-11-24 16-25-28](image/Screenshot from 2020-11-24 16-25-28.png)
+<img src="image/Screenshot from 2020-11-24 16-25-28.png" alt="Screenshot from 2020-11-24 16-25-28" style="zoom:80%;" />
 
 考虑到树状数组需要额外的数组统计及函数调用,优化的结果在可接受误差范围之内。
