@@ -31,12 +31,12 @@
     <rect>
      <x>20</x>
      <y>60</y>
-     <width>281</width>
+     <width>451</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Author: 杜浩哲 何芝叶 李昊颖 张子健</string>
+    <string>Author: Haozhe Du, Zhiye He, Haoying Li, Zijian Zhang</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
