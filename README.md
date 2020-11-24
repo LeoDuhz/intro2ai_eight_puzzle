@@ -3,7 +3,7 @@ Project of intro2ai class, Prof.Zhang Jianming, CSE       TA:Li Xinyu
 
 Implements of eight puzzle problems，using A* algorithm
 
-Teammates: He Zhiye, Li Haoying, Zhang Zijian
+**Thanks to my teammates: He Zhiye, Li Haoying, Zhang Zijian**
 
 
 
