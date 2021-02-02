@@ -117,7 +117,7 @@ void MainWindow::on_initial_set_clicked()
     singleStepCount = 0;
     std::vector<int> initial;
     for(int i = 0; i < 9; i++) initial.push_back(i);
-    std::random_shuffle(initial.begin(), initial.end());
+    std::shuffle(initial.begin(), initial.end(), std::default_random_engine(std::random_device()()));
 
     ui->ini1->setText(QString::number(initial[0]));
     ui->ini2->setText(QString::number(initial[1]));
