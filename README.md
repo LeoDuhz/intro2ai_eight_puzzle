@@ -43,7 +43,7 @@ then you may build with gcc using QtCreator, and have fun with that eight puzzle
 
 ## 2.1 求解八数码问题
 
-我们对于八数码问题的求解采用 A*算法,A*算法的算法思路如下图所示,将初始节点放
+我们对于八数码问题的求解采用 A-star算法,A-star算法的算法思路如下图所示,将初始节点放
 入 openlist 中,然后每次在 openlist 中找到最小的节点加入到 closelist 中,如果最后加
 入的是目标节点,那么搜索结束,通过回溯找到整个路径,这个过程中也涉及重复性的检查,
 最终得到结果。
